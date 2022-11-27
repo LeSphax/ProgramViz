@@ -7,7 +7,7 @@ namespace ComputeShaderUtility
     // This class contains some helper functions to make life a little easier working with compute shaders
     // (Very work-in-progress!)
 
-    public static class ComputeHelper2
+    public static class ComputeHelper
     {
 
         public const FilterMode defaultFilterMode = FilterMode.Bilinear;
@@ -288,7 +288,7 @@ namespace ComputeShaderUtility
 #if UNITY_EDITOR
         static UnityEditor.PlayModeStateChange playModeState;
 
-        static ComputeHelper2()
+        static ComputeHelper()
         {
             // Monitor play mode state
             UnityEditor.EditorApplication.playModeStateChanged -= MonitorPlayModeState;

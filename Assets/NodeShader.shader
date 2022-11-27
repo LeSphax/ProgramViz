@@ -27,11 +27,13 @@ Shader "Instanced/DustShader" {
 
 			#if SHADER_TARGET >= 45
 				StructuredBuffer<float4> positionBuffer;
+				StructuredBuffer<float3> colorBuffer;
 			#endif
 
 				struct v2f
 				{
 					float4 pos : SV_POSITION;
+          float3 color: COLOR;
 					float2 uv : TEXCOORD0;
 				};
 
@@ -49,6 +51,7 @@ Shader "Instanced/DustShader" {
 					v2f o;
 					o.pos = mul(UNITY_MATRIX_VP, float4(worldPosition, 1.0f));
 					o.uv = v.texcoord;
+					o.color = colorBuffer[instanceID];
 					return o;
 				}
 
@@ -59,7 +62,7 @@ Shader "Instanced/DustShader" {
 					float alpha = smoothstep(1,0.5,r);
 					//float alpha = max(0, 1 - (length(offsetFromCentre) * 2));
 					//alpha = 1;
-					fixed4 col = float4(_Color.rgb, _Color.a);
+					fixed4 col = float4(i.color.xyz, _Color.a);
 
 					return col;
 				}

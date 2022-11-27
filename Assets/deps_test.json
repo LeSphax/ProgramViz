@@ -1,0 +1,43 @@
+{
+  "modules": [
+    {
+      "source": "file1",
+      "dependencies": [
+        {
+          "resolved": "file2"
+        },
+        {
+          "resolved": "file3"
+        },
+        {
+          "resolved": "file4"
+        }
+      ]
+    },
+    {
+      "source": "file2",
+      "dependencies": [
+        {
+          "resolved": "file4"
+        }
+      ]
+    },
+    {
+      "source": "file3",
+      "dependencies": []
+    },
+    {
+      "source": "file4",
+      "dependencies": [
+        {
+          "resolved": "file5"
+        }
+      ]
+    },
+    {
+      "source": "file5",
+      "dependencies": []
+    }
+  ]
+
+}

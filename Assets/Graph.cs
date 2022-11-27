@@ -7,19 +7,23 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
 using static UnityEditor.PlayerSettings;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Graph : MonoBehaviour
 {
     public float idealDistance = 3f;
     public float speed = 3f;
     public GameObject node;
-    List<Module> modules = new List<Module>();
-    Dictionary<string, Module> existingModules = new Dictionary<string, Module>();
+    public List<Module> modules = new List<Module>();
+    public Dictionary<string, Module> existingModules = new Dictionary<string, Module>();
+
+    private int index = 0;
 
     Module addModule(ParsedModule parsedModule, ParsedModule[] parsedModules)
     {
         List<Module> dependencies = new List<Module>();
-        Module newModule = new Module(parsedModule.source);
+        Module newModule = new Module(parsedModule.source, index);
+        index++;
         modules.Add(newModule);
         if (existingModules.ContainsKey(newModule.source))
         {
@@ -70,11 +74,9 @@ public class Graph : MonoBehaviour
         return new Vector3(UnityEngine.Random.value, UnityEngine.Random.value, 0);
     }
 
-    void Start()
+    void Awake()
     {
         //Parse the JSON file deps.json
-
-        return;
         Timing.Start("Read JSON");
         string json = System.IO.File.ReadAllText("Assets/deps.json");
         Timing.Stop("Read JSON");
@@ -82,6 +84,8 @@ public class Graph : MonoBehaviour
         Content d = JsonConvert.DeserializeObject<Content>(json);
         Timing.Stop("Parse JSON");
         Timing.Start("Modules");
+        modules.Add(new Module("root", index));
+        index++;
         for (int i = 0; i < d.modules.Length; i++)
         {
             ParsedModule module = d.modules[i];
@@ -92,32 +96,8 @@ public class Graph : MonoBehaviour
             }
         }
         Debug.Log(d.modules.Length);
+        modules[0].dependencies.Concat(modules.Skip(1));
         Timing.Stop("Modules");
-
-        Timing.Start("GameObjects");
-        for (int i = 0; i < modules.Count; i++)
-        {
-            GameObject instance = Instantiate(node, randomStartPos(), Quaternion.identity);
-            instance.name = modules[i].source;
-            if (modules[i].dependents.Count == 0)
-            {
-                instance.GetComponent<Renderer>().material.color = Color.red;
-            }
-            else if (modules[i].dependencies.Count == 0)
-            {
-                instance.GetComponent<Renderer>().material.color = Color.green;
-            }
-            else
-            {
-                instance.GetComponent<Renderer>().material.color = Color.blue;
-            }
-
-            //instance.GetComponentInChildren<Canvas>().worldCamera = Camera.main;
-            //var split = modules[i].source.Split('/');
-            //instance.GetComponentInChildren<Text>().text = split[split.Length - 1];
-            modules[i].node = instance;
-        }
-        Timing.Stop("GameObjects");
     }
 
     Vector3 attract(Vector3 currentPos, Vector3 targetPos, bool draw = false)
@@ -203,15 +183,17 @@ public class Graph : MonoBehaviour
 public class Module
 {
     public string source;
+    public int index;
     public List<Module> dependencies = new List<Module>();
     public List<Module> dependents = new List<Module>();
     public GameObject node;
     public Vector3 previousAcc;
 
 
-    public Module(string source)
+    public Module(string source, int index)
     {
         this.source = source;
+        this.index = index;
     }
 }
 

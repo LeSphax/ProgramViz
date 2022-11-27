@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 259820512}
   - component: {fileID: 259820513}
   - component: {fileID: 259820515}
-  - component: {fileID: 259820514}
   m_Layer: 0
   m_Name: Graph
   m_TagString: Untagged
@@ -171,29 +170,6 @@ MonoBehaviour:
   idealDistance: 2
   speed: 1
   node: {fileID: 1212332789810256954, guid: b84965d3c77dbdd42a7ed320620c2b42, type: 3}
---- !u!114 &259820514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 259820511}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0da13598b33c064fae79b3396b041f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dustCompute: {fileID: 7200000, guid: e884b222e0228af4681c9ad4c7aa0be6, type: 3}
-  numParticles: 1000000
-  instancedMaterial: {fileID: 2100000, guid: 0d09c46ae354e8c49b2688cc4325b256, type: 2}
-  mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-  size: 0.05
-  vacuumMouth: {fileID: 259820512}
-  attractRadius: 1
-  attractForce: 10
-  spawnRegion: {x: 0, y: 0}
-  spawnMap: {fileID: 2800000, guid: da9f5c3c710df3a4a913d18509fee2a6, type: 3}
-  updateProgress: 0
 --- !u!114 &259820515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,10 +182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3a30d75b805bc46b993a704272c317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instanceCount: 10000
+  instanceCount: 100
   instanceMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   instanceMaterial: {fileID: 2100000, guid: 521ff7e20343efd4798db472a6c834b9, type: 2}
   subMeshIndex: 0
+  nodesCompute: {fileID: 7200000, guid: 1323b4fe86875d64f89a44629c32cdba, type: 3}
 --- !u!1 &265579369
 GameObject:
   m_ObjectHideFlags: 0
