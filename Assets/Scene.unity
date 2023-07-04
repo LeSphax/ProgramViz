@@ -162,7 +162,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259820511}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 631fe87e0ce262b46ad817df94262624, type: 3}
   m_Name: 
@@ -182,10 +182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3a30d75b805bc46b993a704272c317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instanceCount: 100
   instanceMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   instanceMaterial: {fileID: 2100000, guid: 521ff7e20343efd4798db472a6c834b9, type: 2}
   subMeshIndex: 0
+  idealDistance: 0.1
+  speed: 0.01
   nodesCompute: {fileID: 7200000, guid: 1323b4fe86875d64f89a44629c32cdba, type: 3}
 --- !u!1 &265579369
 GameObject:
